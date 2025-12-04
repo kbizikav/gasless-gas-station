@@ -33,6 +33,20 @@ $ forge test
 $ forge fmt
 ```
 
+### Swap USDC → ETH via Universal Router
+
+- Script: `script/SwapUsdcToEth.s.sol`
+- Env (from `.env`): `PRIVATE_KEY`, `UNIVERSAL_ROUTER`, `PERMIT2`, `USDC`, `WETH`, `POOL_FEE`; pass `--rpc-url` manually.
+- Uses the env-provided router, tokens, and pool fee (v3 path encodes `USDC -> WETH`), with hardcoded `usdcAmountIn = 100` (6 decimals) and `minEthOut = 0`.
+
+```shell
+forge script script/SwapUsdcToEth.s.sol:SwapUsdcToEth \
+  --sig "run()" \
+  --rpc-url $MAINNET_RPC_URL --broadcast
+```
+
+- Amounts are fixed in the script; adjust there if needed.
+
 ### Gas Snapshots
 
 ```shell
