@@ -1,9 +1,24 @@
 {
+  "name": "gelato-getting-started",
+  "private": true,
+  "scripts": {
+    "dev": "vite --config frontend/vite.config.ts",
+    "build": "vite build --config frontend/vite.config.ts",
+    "preview": "vite preview --config frontend/vite.config.ts"
+  },
   "dependencies": {
     "@gelatonetwork/relay-sdk": "^5.6.0",
     "dotenv": "^17.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "viem": "^2.41.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "vite": "^5.4.10"
   }
 }
