@@ -21,7 +21,7 @@
 - コントラクト内で
 
   - USDC を pull
-  - USDC を ETH に swap (Uniswap V4 の UniversalRouter を利用)
+  - USDC を ETH に swap (Uniswap V3 の UniversalRouter を利用)
   - swap で得た ETH から **Gelato への fee（ETH）を支払う**
 
 - Gelato との連携には `callWithSyncFee` ＋ `GelatoRelayContext` を利用
@@ -44,7 +44,7 @@
 
      1. permit 実行
      2. USDC pull
-     3. USDC → ETH swap (Uniswap V4)
+     3. USDC → ETH swap (Uniswap V3)
      4. swap で得た ETH から Gelato への fee を支払う
      5. 残りの ETH をユーザーへ送付
 
@@ -212,7 +212,7 @@ contract PermitSwapPayFeeNative is GelatoRelayContext {
 
 ---
 
-## 5. CLI側の仕様（ざっくり）
+## 5. CLI 側の仕様（ざっくり）
 
 ### 5.1 permit 署名作成
 

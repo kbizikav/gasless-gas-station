@@ -25,3 +25,6 @@
 [submodule "lib/relay-contracts"]
 	path = lib/relay-contracts
 	url = https://github.com/gelatodigital/relay-contracts
+[submodule "lib/relay-context-contracts"]
+	path = lib/relay-context-contracts
+	url = https://github.com/gelatodigital/relay-context-contracts
