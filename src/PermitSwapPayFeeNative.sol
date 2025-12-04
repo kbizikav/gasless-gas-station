@@ -15,6 +15,8 @@ import {NATIVE_TOKEN} from "@gelatonetwork/relay-context/contracts/constants/Tok
 contract PermitSwapPayFeeNative is GelatoRelayContext {
     using SafeERC20 for IERC20;
 
+    event IncrementedWithPermit(address indexed user, address indexed token, uint256 amount);
+
     IERC20Permit public immutable usdcPermit;
     IERC20 public immutable usdc;
     IUniversalRouter public immutable router;
@@ -52,11 +54,11 @@ contract PermitSwapPayFeeNative is GelatoRelayContext {
     /// @param p EIP-2612 permit payload for USDC.
     /// @param s Swap parameters (minimum ETH out and swap deadline).
     /// @param maxFeeEth Max native fee (in wei) allowed to pay Gelato for this call.
-    function permitSwapAndPayFeeNative(
-        PermitData calldata p,
-        SwapParams calldata s,
-        uint256 maxFeeEth
-    ) external payable onlyGelatoRelay {
+    function permitSwapAndPayFeeNative(PermitData calldata p, SwapParams calldata s, uint256 maxFeeEth)
+        external
+        payable
+        onlyGelatoRelay
+    {
         // Ensure relay is charging native fees (accept both canonical and zero-address markers).
         address feeToken = _getFeeToken();
         require(feeToken == NATIVE_TOKEN || feeToken == address(0), "fee token not native");
@@ -104,6 +106,32 @@ contract PermitSwapPayFeeNative is GelatoRelayContext {
         // Fund the router with USDC; payerIsUser=false keeps payment internal to the router.
         usdc.safeTransfer(address(router), amountIn);
         router.execute(commands, inputs, deadline);
+    }
+
+    function incrementWithPermitFeeCapped(
+        address user,
+        address token,
+        uint256 amount,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s,
+        uint256 maxFee
+    ) external onlyGelatoRelay {
+        // Execute permit to allow contract to spend user's tokens
+        IERC20Permit(token).permit(user, address(this), amount, deadline, v, r, s);
+
+        // Your business logic here
+        IERC20(token).transferFrom(user, address(this), amount);
+
+        // Payment to Gelato
+        // NOTE: be very careful here!
+        // if you do not use the onlyGelatoRelayERC2771 modifier,
+        // anyone could encode themselves as the fee collector
+        // in the low-level data and drain tokens from this contract.
+        _transferRelayFeeCapped(maxFee);
+
+        emit IncrementedWithPermit(user, token, amount);
     }
 
     receive() external payable {}
