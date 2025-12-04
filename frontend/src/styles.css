@@ -35,26 +35,46 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
 }
 
-.header-content {
-    display: flex;
-    flex-direction: column;
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header-bottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.network-badge {
+  font-size: 0.75rem;
+  background: #0052ff; /* Base Blue */
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
   color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
-  margin: 4px 0 0;
-  font-size: 0.875rem;
+  margin: 0;
+  font-size: 0.95rem;
   color: var(--text-secondary);
 }
 
@@ -117,12 +137,19 @@ body {
   color: var(--text-secondary);
 }
 
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .balance-value {
     color: var(--text-primary);
     font-weight: 500;
 }
 
 .amount-input {
+  flex: 1;
   width: 100%;
   background: transparent;
   border: none;
@@ -131,6 +158,15 @@ body {
   font-weight: 600;
   outline: none;
   padding: 0;
+}
+
+.token-suffix {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
 }
 
 .amount-input::placeholder {
@@ -168,13 +204,22 @@ body {
   text-align: center;
 }
 
-.banner.error {
-  color: var(--danger);
-  background: rgba(239, 68, 68, 0.1);
+.banner {
   padding: 12px;
   border-radius: 12px;
   margin-bottom: 20px;
   font-size: 0.875rem;
+}
+
+.banner.error {
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.banner.warning {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.2);
 }
 
 .task-status-container {

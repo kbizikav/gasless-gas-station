@@ -247,24 +247,31 @@ const App = () => {
   return (
     <div className="shell">
       <header className="header">
-        <div className="header-content">
+        <div className="header-top">
           <h1 className="title">Gelato Gasless Swap</h1>
-          <p className="subtitle">Swap tokens without paying ETH for gas</p>
+          <button className="connect-btn" onClick={connectWallet}>
+            {wallet ? (
+              <>
+                <span className="status-dot"></span>
+                {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
+              </>
+            ) : (
+              "Connect Wallet"
+            )}
+          </button>
         </div>
-        <button className="connect-btn" onClick={connectWallet}>
-          {wallet ? (
-            <>
-              <span className="status-dot"></span>
-              {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
-            </>
-          ) : (
-            "Connect Wallet"
-          )}
-        </button>
+        <div className="header-bottom">
+          <span className="network-badge">Base Mainnet</span>
+          <p className="subtitle">Swap USDC without paying ETH for gas</p>
+        </div>
       </header>
 
       <main className="main-content">
         <div className="card swap-card">
+          <div className="banner warning">
+            ⚠️ <strong>Experimental:</strong> Please test with small amounts only.
+          </div>
+
           {!appConfig.relayApiKey && (
             <div className="banner error">
               Configuration Error: Relay API Key is missing.
@@ -289,6 +296,7 @@ const App = () => {
                   autoComplete="off"
                   className="amount-input"
                 />
+                <div className="token-suffix">USDC</div>
               </div>
             </div>
 
@@ -299,7 +307,7 @@ const App = () => {
               type="submit" 
               disabled={isSubmitting || !wallet}
             >
-              {isSubmitting ? "Processing..." : "Swap"}
+              {isSubmitting ? "Swapping..." : "Gasless Swap"}
             </button>
           </form>
 
