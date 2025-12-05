@@ -248,7 +248,7 @@ const App = () => {
     <div className="shell">
       <header className="header">
         <div className="header-top">
-          <h1 className="title">Gelato Gasless Swap</h1>
+          <h1 className="title">Gasless Gas Station</h1>
           <button className="connect-btn" onClick={connectWallet}>
             {wallet ? (
               <>
@@ -262,7 +262,7 @@ const App = () => {
         </div>
         <div className="header-bottom">
           <span className="network-badge">Base Mainnet</span>
-          <p className="subtitle">Swap USDC without paying ETH for gas</p>
+          <p className="subtitle">Get gas with USDC</p>
         </div>
       </header>
 
