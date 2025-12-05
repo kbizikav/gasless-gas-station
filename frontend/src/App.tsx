@@ -269,7 +269,7 @@ const App = () => {
       <main className="main-content">
         <div className="card swap-card">
           <div className="banner warning">
-            ⚠️ <strong>Experimental:</strong> Please test with small amounts only.
+            ⚠️ <strong>Experimental:</strong> Demonstration purpose only. Use only with test funds.
           </div>
 
           {!appConfig.relayApiKey && (
